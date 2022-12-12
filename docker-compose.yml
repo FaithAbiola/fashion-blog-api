@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=fashion_blog_api
+  fashion-blog-api:
+    container_name: fashion-blog-container
+    image: fashion-blog-api
+    build:
+      context: .
+    ports:
+      - "7785:7785"
+    restart: always
+    depends_on:
+      - postgres-db
